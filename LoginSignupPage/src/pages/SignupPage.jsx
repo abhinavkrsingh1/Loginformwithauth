@@ -1,11 +1,12 @@
 import { useState } from 'react';
 
-const API_URL = 'http://localhost:8500';
+const API = import.meta.env.API || 'http://localhost:8500';
 
 function SignupPage() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
 
 
   const handleSubmit = async (e) => {
@@ -14,7 +15,7 @@ function SignupPage() {
     setLoading(true);
 
     try {
-      const res = await fetch(`${API_URL}/signup`, {
+      const res = await fetch(`${API}/signup`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, email, password }),
@@ -74,13 +75,8 @@ function SignupPage() {
             disabled={!name || !email || !password || loading}
             className="w-full rounded-lg bg-blue-600 px-4 py-2 font-semibold text-white transition hover:bg-blue-500 disabled:opacity-60 disabled:hover:bg-blue-600"
           >
-            {loading ? 'Creating...' : 'Create account'}
           </button>
         </form>
-
-        {feedback && (
-          <p className="mt-4 text-sm text-blue-100/90">{feedback}</p>
-        )}
       </div>
     </div>
   );

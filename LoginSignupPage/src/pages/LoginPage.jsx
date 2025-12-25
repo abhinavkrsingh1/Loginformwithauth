@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const API_URL = 'http://localhost:8500';
+const API = import.meta.env.API || 'http://localhost:8500';
 
 function LoginPage() {
   const [email, setEmail] = useState('');
@@ -14,7 +14,7 @@ function LoginPage() {
     setLoading(true);
 
     try {
-      const res = await fetch(`${API_URL}/login`, {
+      const res = await fetch(`${API}/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),

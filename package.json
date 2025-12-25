@@ -4,6 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "dev": "npm --prefix LoginSignupPage run dev",
+    "api": "npm --prefix Loginformwithauth run start",
+    "api:dev": "npm --prefix Loginformwithauth run dev",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

@@ -1,12 +1,10 @@
 import { useState } from 'react';
 
-const API = import.meta.env.API || 'http://localhost:8500';
+const API ='http://localhost:8500';
 
 function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [feedback, setFeedback] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -32,29 +30,29 @@ function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-white flex items-center justify-center px-4">
-      <div className="w-full max-w-md rounded-2xl border border-white/10 bg-white/5 p-8 shadow-xl backdrop-blur">
+    <div className="min-h-screen bg-slate-100 text-slate-900 flex items-center justify-center px-4">
+      <div className="w-full max-w-md rounded-xl border border-slate-200 bg-white p-8 shadow-sm">
         <h1 className="text-2xl font-semibold">Login</h1>
         <form onSubmit={handleSubmit} className="mt-6 space-y-4">
           <div className="space-y-2">
-            <label className="text-sm text-blue-100/90" htmlFor="email">Email</label>
+            <label className="text-sm text-slate-700" htmlFor="email">Email</label>
             <input
               id="email"
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full rounded-lg border border-white/20 bg-white/10 px-3 py-2 text-white outline-none focus:border-blue-500"
+              className="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-slate-900 outline-none focus:border-blue-500"
               required
             />
           </div>
           <div className="space-y-2">
-            <label className="text-sm text-blue-100/90" htmlFor="password">Password</label>
+            <label className="text-sm text-slate-700" htmlFor="password">Password</label>
             <input
               id="password"
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full rounded-lg border border-white/20 bg-white/10 px-3 py-2 text-white outline-none focus:border-blue-500"
+              className="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-slate-900 outline-none focus:border-blue-500"
               required
             />
           </div>
@@ -68,7 +66,7 @@ function LoginPage() {
         </form>
 
         {feedback && (
-          <p className="mt-4 text-sm text-blue-100/90">{feedback}</p>
+          <p className="mt-4 text-sm text-slate-700">{feedback}</p>
         )}
       </div>
     </div>

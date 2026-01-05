@@ -1,32 +1,34 @@
-import { useState } from 'react';
-
-const API = import.meta.env.VITE_API_URL || 'http://localhost:8500';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function SignupPage() {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const [feedback, setFeedback] = useState('');
+  const [feedback, setFeedback] = useState("");
+  const navigate = useNavigate();
 
-
-
+  const API = import.meta.env.VITE_BACKEND_URL || "http://localhost:8000";
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setFeedback('');
+    setFeedback("");
     setLoading(true);
 
     try {
       const res = await fetch(`${API}/signup`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, email, password }),
       });
       const data = await res.json();
       if (!res.ok || !data.success) {
-        throw new Error(data.message || 'Signup failed');
+        throw new Error(data.message || "Signup failed");
       }
-      setFeedback(data.message || 'Signup success');
+      setFeedback(data.message || "Signup success");
+      setTimeout(() => {
+        navigate("/login", { replace: true });
+      }, 800);
     } catch (err) {
       setFeedback(err.message);
     } finally {
@@ -40,7 +42,9 @@ function SignupPage() {
         <h1 className="text-2xl font-semibold">Sign up</h1>
         <form onSubmit={handleSubmit} className="mt-6 space-y-4">
           <div className="space-y-2">
-            <label className="text-sm text-slate-700" htmlFor="name">Name</label>
+            <label className="text-sm text-slate-700" htmlFor="name">
+              Name
+            </label>
             <input
               id="name"
               type="text"
@@ -51,7 +55,9 @@ function SignupPage() {
             />
           </div>
           <div className="space-y-2">
-            <label className="text-sm text-slate-700" htmlFor="email">Email</label>
+            <label className="text-sm text-slate-700" htmlFor="email">
+              Email
+            </label>
             <input
               id="email"
               type="email"
@@ -62,7 +68,9 @@ function SignupPage() {
             />
           </div>
           <div className="space-y-2">
-            <label className="text-sm text-slate-700" htmlFor="password">Password</label>
+            <label className="text-sm text-slate-700" htmlFor="password">
+              Password
+            </label>
             <input
               id="password"
               type="password"
@@ -77,13 +85,11 @@ function SignupPage() {
             disabled={!name || !email || !password || loading}
             className="w-full rounded-lg bg-blue-600 px-2 py-5 font-semibold text-white transition hover:bg-blue-500 disabled:opacity-60 disabled:hover:bg-blue-600"
           >
-            {loading ? 'Creating...' : 'Create account'}
+            {loading ? "Creating..." : "Create account"}
           </button>
         </form>
 
-        {feedback && (
-          <p className="mt-4 text-sm text-slate-700">{feedback}</p>
-        )}
+        {feedback && <p className="mt-4 text-sm text-slate-700">{feedback}</p>}
       </div>
     </div>
   );

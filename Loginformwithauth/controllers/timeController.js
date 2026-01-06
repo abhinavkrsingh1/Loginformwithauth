@@ -21,7 +21,7 @@ const widgetConfig = [
 // Get widget configuration with positions
 const getWidgets = (req, res) => {
   try {
-    res.status(200).json({
+    res.status(201).json({
       success: true,
       widgets: widgetConfig,
     });
